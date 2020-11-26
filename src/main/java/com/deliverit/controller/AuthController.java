@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin
 @Slf4j
-public class JwtAuthenticationController {
+public class AuthController {
 
     @Autowired
     private AuthenticationManager authenticationManager;

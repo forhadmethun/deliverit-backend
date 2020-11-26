@@ -1,6 +1,7 @@
-package com.deliverit.entity;
+package com.deliverit.entity.user;
 
-import com.deliverit.utility.dto.AdminDto;
+import com.deliverit.entity.TableConstants;
+import com.deliverit.utility.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +17,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Admin implements Serializable {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,8 +31,9 @@ public class Admin implements Serializable {
     private String createDateTime;
     private String lastUpDatedDateTime;
     private Boolean isValid;
+    private UserType userType;
 
-    public static Admin of(AdminDto adminDto, ModelMapper modelMapper) {
-        return modelMapper.map(adminDto, Admin.class);
+    public static User of(UserDto userDto, ModelMapper modelMapper) {
+        return modelMapper.map(userDto, User.class);
     }
 }
