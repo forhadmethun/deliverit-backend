@@ -1,7 +1,6 @@
 package com.deliverit.utility.response;
 
-import com.deliverit.utility.Utility;
-import com.deliverit.utility.dto.AdminDto;
+import com.deliverit.utility.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,12 +11,12 @@ import org.modelmapper.ModelMapper;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProfileResponse {
+public class UserResponse {
     private String name;
     private String email;
     private String mobileNo;
 
-    public static ProfileResponse of(AdminDto admin, ModelMapper modelMapper) {
-        return modelMapper.map(admin, ProfileResponse.class);
+    public static UserResponse of(UserDto userDto, ModelMapper modelMapper) {
+        return modelMapper.map(userDto, UserResponse.class);
     }
 }

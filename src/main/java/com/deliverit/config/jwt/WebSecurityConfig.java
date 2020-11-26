@@ -56,12 +56,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers( HttpMethod.POST, "/profile")
+                .antMatchers( HttpMethod.POST, "/user")
                 .permitAll()
                 .antMatchers(
                         "/authenticate",
-                        "/health",
-                        "/h2-console/**"
+                        "/actuator/**"
+
                 )
                 .permitAll()
                 .anyRequest()
