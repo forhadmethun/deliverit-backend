@@ -5,7 +5,7 @@ import com.deliverit.repository.AdminRepository;
 import com.deliverit.service.interfaces.UserService;
 import com.deliverit.utility.Utility;
 import com.deliverit.utility.dto.UserDto;
-import com.deliverit.utility.request.UserRequest;
+import com.deliverit.utility.io.request.UserRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;

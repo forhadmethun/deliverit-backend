@@ -1,4 +1,4 @@
-package com.deliverit.utility.request;
+package com.deliverit.utility.io.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
