@@ -25,8 +25,6 @@ public class Customer implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long customerId;
     private String name;
-
-    @Column(unique=true)
     private String email;
     private String mobileNo;
 

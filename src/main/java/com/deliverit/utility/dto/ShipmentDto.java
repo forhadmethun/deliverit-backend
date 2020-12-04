@@ -1,5 +1,6 @@
 package com.deliverit.utility.dto;
 
+import com.deliverit.entity.order.ShipmentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,13 +15,12 @@ import java.time.LocalDateTime;
 public class ShipmentDto {
     private Long id;
     private String address;
-    private String shipmentStatus;
+    private ShipmentStatus shipmentStatus;
     private LocalDateTime placementTime;
     private LocalDateTime actualPickupTime;
+    private LocalDateTime expectedPickupTime;
+    private LocalDateTime expectedDeliveryTime;
     private LocalDateTime actualDeliveryTime;
     private Long deliveryFee;
     private String paymentMethod;
-    private LocalDateTime expectedPickupTime;
-    private LocalDateTime expectedDeliveryTime;
-    private String shipmentInstruction;
 }

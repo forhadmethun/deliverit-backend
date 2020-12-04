@@ -4,12 +4,14 @@ import com.deliverit.entity.customer.Customer;
 import com.deliverit.entity.order.Order;
 import com.deliverit.entity.order.OrderItem;
 import com.deliverit.entity.order.Shipment;
+import com.deliverit.entity.order.ShipmentStatus;
 import com.deliverit.repository.CustomerRepository;
 import com.deliverit.repository.OrderItemRepository;
 import com.deliverit.repository.OrderRepository;
 import com.deliverit.repository.ShipmentRepository;
 import com.deliverit.service.interfaces.OrderService;
 import com.deliverit.utility.dto.CustomerDto;
+import com.deliverit.utility.dto.ShipmentDto;
 import com.deliverit.utility.io.OrderIO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,8 +38,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderIO save(OrderIO orderRequest) {
+        ShipmentDto shipmentDto = orderRequest.getShipmentDto();
+        shipmentDto.setShipmentStatus(ShipmentStatus.NEW);
         Shipment shipment = shipmentRepository
-                .save(Shipment.of(orderRequest.getShipmentDto(), modelMapper));
+                .save(Shipment.of(shipmentDto, modelMapper));
         CustomerDto customerDto = orderRequest.getCustomerDto();
         Customer customer = customerRepository.save(Customer.of(customerDto, modelMapper));
         Order order = Order.of(orderRequest.getOrderDto(), modelMapper);
@@ -72,5 +76,32 @@ public class OrderServiceImpl implements OrderService {
         Shipment shipment = shipmentRepository.findById(order.getShipmentId()).get();
         List<OrderItem> orderItems = orderItemRepository.findByOrderId(orderId);
         return buildResponse(order, shipment, orderItems, customer,modelMapper);
+    }
+
+    @Override
+    public List<OrderIO> findAll() {
+        List<Order> orders = orderRepository.findAll();
+        List<OrderIO> orderIOS = new ArrayList<>();
+        orders.stream()
+                .forEach(order ->{
+                    Customer customer = customerRepository.findById(order.getCustomerId()).get();
+                    Shipment shipment = shipmentRepository.findById(order.getShipmentId()).get();
+                    List<OrderItem> orderItems = orderItemRepository.findByOrderId(order.getOrderId());
+                    orderIOS.add(buildResponse(order, shipment, orderItems, customer,modelMapper));
+                });
+        return orderIOS;
+    }
+
+    @Override
+    public List<OrderIO> findAllByStatus(String statusCode) {
+        List<Shipment> shipments = shipmentRepository.findAllByShipmentStatus(ShipmentStatus.valueOf(statusCode));
+        List<OrderIO> orderIOS = new ArrayList<>();
+        shipments.forEach(shipment -> {
+            Order order = orderRepository.findByShipmentId(shipment.getShipmentId()).get();
+            Customer customer = customerRepository.findById(order.getCustomerId()).get();
+            List<OrderItem> orderItems = orderItemRepository.findByOrderId(order.getOrderId());
+            orderIOS.add(buildResponse(order, shipment, orderItems, customer,modelMapper));
+        });
+        return orderIOS;
     }
 }

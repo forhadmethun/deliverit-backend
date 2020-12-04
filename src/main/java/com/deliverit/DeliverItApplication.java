@@ -11,11 +11,9 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 
-import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.ZonedDateTime;
 
 @SpringBootApplication
 public class DeliverItApplication {
@@ -37,16 +35,4 @@ public class DeliverItApplication {
 				.registerTypeAdapter(LocalTime.class, new LocalTimeAdapter().nullSafe())
 				.create();
 	}
-
-/*	@Bean
-	public Gson gson() {
-	return new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new JsonDeserializer<LocalDateTime>() {
-		@Override
-		public LocalDateTime deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-			return ZonedDateTime.parse(json.getAsJsonPrimitive().getAsString()).toLocalDateTime();
-		}
-	}).create();*
-}*/
-
-
 }

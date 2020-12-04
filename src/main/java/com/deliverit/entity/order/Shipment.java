@@ -24,7 +24,7 @@ public class Shipment implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long shipmentId;
     private String address;
-    private String shipmentStatus;
+    private ShipmentStatus shipmentStatus;
     private LocalDateTime placementTime;
     private LocalDateTime actualPickupTime;
     private LocalDateTime actualDeliveryTime;
