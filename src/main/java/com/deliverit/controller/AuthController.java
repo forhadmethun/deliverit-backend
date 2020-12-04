@@ -3,8 +3,8 @@ package com.deliverit.controller;
 import com.deliverit.config.jwt.JwtTokenUtil;
 import com.deliverit.service.JwtUserDetailsServiceImpl;
 import com.deliverit.utility.exceptions.ServiceError;
-import com.deliverit.utility.request.JwtRequest;
-import com.deliverit.utility.response.JwtResponse;
+import com.deliverit.utility.io.request.JwtRequest;
+import com.deliverit.utility.io.response.JwtResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin
 @Slf4j
-public class JwtAuthenticationController {
+public class AuthController {
 
     @Autowired
     private AuthenticationManager authenticationManager;

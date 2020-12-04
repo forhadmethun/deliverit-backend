@@ -1,4 +1,4 @@
-package com.deliverit.web;
+package com.deliverit.config;
 
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +30,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         var messageConverter = new GsonHttpMessageConverter();
+        messageConverter.setGson(gson);
         converters.add(messageConverter);
     }
 }

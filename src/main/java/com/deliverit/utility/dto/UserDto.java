@@ -1,8 +1,7 @@
 package com.deliverit.utility.dto;
 
-import com.deliverit.entity.Admin;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.deliverit.entity.user.User;
+import com.deliverit.utility.io.request.UserRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AdminDto implements Serializable {
+public class UserDto implements Serializable {
     private String name;
     private String email;
     private String mobileNo;
@@ -24,7 +23,10 @@ public class AdminDto implements Serializable {
     private String createDateTime;
     private String lastUpDatedDateTime;
 
-    public static AdminDto of(Admin admin, ModelMapper modelMapper) {
-        return modelMapper.map(admin, AdminDto.class);
+    public static UserDto of(User user, ModelMapper modelMapper) {
+        return modelMapper.map(user, UserDto.class);
+    }
+    public static UserDto of(UserRequest user, ModelMapper modelMapper) {
+        return modelMapper.map(user, UserDto.class);
     }
 }

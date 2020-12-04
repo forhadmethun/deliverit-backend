@@ -1,5 +1,6 @@
-package com.deliverit.utility.request;
+package com.deliverit.utility.io.request;
 
+import com.deliverit.entity.user.UserType;
 import com.deliverit.utility.exceptions.ServiceError;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 @NoArgsConstructor
-public class ProfileRequest {
+public class UserRequest {
     @NotBlank(message = ServiceError.INVALID_REQUEST)
     private String name;
 
@@ -21,5 +22,9 @@ public class ProfileRequest {
     @NotBlank(message = ServiceError.INVALID_REQUEST)
     private String password;
 
+    private boolean isValid;
+
     private String address;
+
+    private UserType userType;
 }
