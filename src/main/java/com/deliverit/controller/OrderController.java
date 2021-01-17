@@ -1,7 +1,7 @@
 package com.deliverit.controller;
 
 import com.deliverit.service.interfaces.OrderService;
-import com.deliverit.utility.io.OrderIO;
+import com.deliverit.dto.io.OrderIO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;

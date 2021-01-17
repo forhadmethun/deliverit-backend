@@ -1,13 +1,12 @@
-package com.deliverit.utility.io;
+package com.deliverit.dto.io;
 
 import com.deliverit.entity.customer.Customer;
 import com.deliverit.entity.order.Order;
-import com.deliverit.entity.order.OrderItem;
 import com.deliverit.entity.order.Shipment;
-import com.deliverit.utility.dto.CustomerDto;
-import com.deliverit.utility.dto.OrderDto;
-import com.deliverit.utility.dto.OrderItemDto;
-import com.deliverit.utility.dto.ShipmentDto;
+import com.deliverit.dto.CustomerDto;
+import com.deliverit.dto.OrderDto;
+import com.deliverit.dto.OrderItemDto;
+import com.deliverit.dto.ShipmentDto;
 import lombok.Data;
 import org.modelmapper.ModelMapper;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -61,14 +60,12 @@ public class OrderIO extends OrderDto {
     public static OrderIO buildResponse(
             Order order,
             Shipment shipment,
-            List<OrderItem> orderItems,
             Customer customer, ModelMapper modelMapper
     ){
         List<OrderItemDto> orderItemdtos = new ArrayList<>();
-        orderItems.stream()
-                .forEach(orderItem -> orderItemdtos.add(OrderItemDto.of(orderItem, modelMapper)));
+        order.getItems().stream()
+                .forEach(orderItem -> orderItemdtos.add(OrderItemDto.of(orderItem)));
         OrderIO orderResponse = new OrderIO();
-
         orderResponse.setShipmentId(shipment.getShipmentId());
         orderResponse.setAddress(shipment.getAddress());
         orderResponse.setDeliveryFee(shipment.getDeliveryFee());

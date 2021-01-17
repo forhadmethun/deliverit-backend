@@ -1,4 +1,4 @@
-package com.deliverit.utility.dto;
+package com.deliverit.dto;
 
 import com.deliverit.entity.order.ShipmentStatus;
 import lombok.AllArgsConstructor;

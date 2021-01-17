@@ -1,4 +1,4 @@
-package com.deliverit.utility.io.request;
+package com.deliverit.dto.io.request;
 
 import com.deliverit.entity.user.UserType;
 import com.deliverit.utility.exceptions.ServiceError;

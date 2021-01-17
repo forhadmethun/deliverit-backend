@@ -1,9 +1,7 @@
 package com.deliverit.entity.customer;
 
 import com.deliverit.entity.TableConstants;
-import com.deliverit.entity.user.UserType;
-import com.deliverit.utility.dto.CustomerDto;
-import com.deliverit.utility.dto.UserDto;
+import com.deliverit.dto.CustomerDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

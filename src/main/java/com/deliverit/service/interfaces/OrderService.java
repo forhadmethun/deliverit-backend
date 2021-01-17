@@ -1,6 +1,6 @@
 package com.deliverit.service.interfaces;
 
-import com.deliverit.utility.io.OrderIO;
+import com.deliverit.dto.io.OrderIO;
 
 import java.util.List;
 

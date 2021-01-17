@@ -10,9 +10,9 @@ import com.deliverit.repository.OrderItemRepository;
 import com.deliverit.repository.OrderRepository;
 import com.deliverit.repository.ShipmentRepository;
 import com.deliverit.service.interfaces.OrderService;
-import com.deliverit.utility.dto.CustomerDto;
-import com.deliverit.utility.dto.ShipmentDto;
-import com.deliverit.utility.io.OrderIO;
+import com.deliverit.dto.CustomerDto;
+import com.deliverit.dto.ShipmentDto;
+import com.deliverit.dto.io.OrderIO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.deliverit.utility.io.OrderIO.buildResponse;
+import static com.deliverit.dto.io.OrderIO.buildResponse;
 
 @Slf4j
 @Service
@@ -48,17 +48,18 @@ public class OrderServiceImpl implements OrderService {
         order.setShipmentId(shipment.getShipmentId());
         order.setCustomerId(customer.getCustomerId());
         order = orderRepository.save(order);
-        List<OrderItem> orderItems = getOrderItems(orderRequest, order.getOrderId());
+        List<OrderItem> orderItems = getOrderItems(orderRequest, order);
         orderItemRepository.saveAll(orderItems);
+        order.setItems(orderItems);
         return find(order.getOrderId());
     }
 
-    private List<OrderItem> getOrderItems(OrderIO orderIO, long orderId) {
+    private List<OrderItem> getOrderItems(OrderIO orderIO, Order order) {
         List<OrderItem> orderItems = new ArrayList<>();
         orderIO.getOrderItems()
                 .forEach(orderItemDto -> {
                     OrderItem orderItem = OrderItem.of(orderItemDto, modelMapper);
-                    orderItem.setOrderId(orderId);
+                    orderItem.setOrder(order);
                     orderItems.add(orderItem);
                 });
         return orderItems;
@@ -74,8 +75,7 @@ public class OrderServiceImpl implements OrderService {
         order = orderOptional.get();
         Customer customer = customerRepository.findById(order.getCustomerId()).get();
         Shipment shipment = shipmentRepository.findById(order.getShipmentId()).get();
-        List<OrderItem> orderItems = orderItemRepository.findByOrderId(orderId);
-        return buildResponse(order, shipment, orderItems, customer,modelMapper);
+        return buildResponse(order, shipment, customer,modelMapper);
     }
 
     @Override
@@ -86,8 +86,7 @@ public class OrderServiceImpl implements OrderService {
                 .forEach(order ->{
                     Customer customer = customerRepository.findById(order.getCustomerId()).get();
                     Shipment shipment = shipmentRepository.findById(order.getShipmentId()).get();
-                    List<OrderItem> orderItems = orderItemRepository.findByOrderId(order.getOrderId());
-                    orderIOS.add(buildResponse(order, shipment, orderItems, customer,modelMapper));
+                    orderIOS.add(buildResponse(order, shipment, customer,modelMapper));
                 });
         return orderIOS;
     }
@@ -99,8 +98,7 @@ public class OrderServiceImpl implements OrderService {
         shipments.forEach(shipment -> {
             Order order = orderRepository.findByShipmentId(shipment.getShipmentId()).get();
             Customer customer = customerRepository.findById(order.getCustomerId()).get();
-            List<OrderItem> orderItems = orderItemRepository.findByOrderId(order.getOrderId());
-            orderIOS.add(buildResponse(order, shipment, orderItems, customer,modelMapper));
+            orderIOS.add(buildResponse(order, shipment, customer,modelMapper));
         });
         return orderIOS;
     }

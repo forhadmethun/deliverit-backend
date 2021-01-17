@@ -1,7 +1,7 @@
 package com.deliverit.entity.order;
 
 import com.deliverit.entity.TableConstants;
-import com.deliverit.utility.dto.ShipmentDto;
+import com.deliverit.dto.ShipmentDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

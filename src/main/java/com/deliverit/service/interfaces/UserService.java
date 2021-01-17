@@ -1,7 +1,7 @@
 package com.deliverit.service.interfaces;
 
-import com.deliverit.utility.dto.UserDto;
-import com.deliverit.utility.io.request.UserRequest;
+import com.deliverit.dto.UserDto;
+import com.deliverit.dto.io.request.UserRequest;
 
 public interface UserService {
     UserDto save(UserRequest userRequest);

@@ -1,8 +1,7 @@
 package com.deliverit.entity.order;
 
 import com.deliverit.entity.TableConstants;
-import com.deliverit.utility.dto.OrderItemDto;
-import com.deliverit.utility.dto.UserDto;
+import com.deliverit.dto.OrderItemDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,10 +22,13 @@ public class OrderItem implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long itemId;
-    private Long orderId;
     private String description;
     private int quantity;
     private double unitPrice;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     public static OrderItem of(OrderItemDto orderItemDto, ModelMapper modelMapper) {
         return modelMapper.map(orderItemDto, OrderItem.class);

@@ -1,6 +1,5 @@
-package com.deliverit.utility.dto;
+package com.deliverit.dto;
 
-import com.deliverit.entity.order.Order;
 import com.deliverit.entity.order.OrderItem;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +18,13 @@ public class OrderItemDto {
     private int quantity;
     private double unitPrice;
 
-    public static OrderItemDto of(OrderItem orderItem, ModelMapper modelMapper) {
-        return modelMapper.map(orderItem, OrderItemDto.class);
+    public static OrderItemDto of(OrderItem orderItem) {
+        return new OrderItemDto(
+                orderItem.getItemId(),
+                orderItem.getOrder().getOrderId(),
+                orderItem.getDescription(),
+                orderItem.getQuantity(),
+                orderItem.getUnitPrice()
+        );
     }
 }

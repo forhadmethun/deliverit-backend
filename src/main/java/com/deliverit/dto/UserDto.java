@@ -1,7 +1,7 @@
-package com.deliverit.utility.dto;
+package com.deliverit.dto;
 
 import com.deliverit.entity.user.User;
-import com.deliverit.utility.io.request.UserRequest;
+import com.deliverit.dto.io.request.UserRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

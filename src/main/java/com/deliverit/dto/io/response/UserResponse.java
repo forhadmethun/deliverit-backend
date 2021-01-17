@@ -1,6 +1,6 @@
-package com.deliverit.utility.io.response;
+package com.deliverit.dto.io.response;
 
-import com.deliverit.utility.dto.UserDto;
+import com.deliverit.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

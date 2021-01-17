@@ -1,7 +1,7 @@
 package com.deliverit.controller;
 
 import com.deliverit.service.interfaces.UserService;
-import com.deliverit.utility.io.request.UserRequest;
+import com.deliverit.dto.io.request.UserRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import com.deliverit.utility.io.response.UserResponse;
+import com.deliverit.dto.io.response.UserResponse;
 
 @RestController
 @Slf4j
