@@ -13,6 +13,9 @@ import javax.validation.Valid;
 
 import com.deliverit.dto.io.response.UserResponse;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @Slf4j
 @RequiredArgsConstructor
@@ -32,5 +35,13 @@ public class UserController {
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         log.info("ProfileController:: getProfile: userName: {}", userName);
         return UserResponse.of(userService.find(userName), modelMapper);
+    }
+
+    @GetMapping(value = "/drivers")
+    public List<UserResponse> getAllDrivers() {
+        log.info("UserController:: getAllDrivers");
+        return userService.findAllDrivers().stream().map(
+                u -> UserResponse.of(u, modelMapper)
+        ).collect(Collectors.toList());
     }
 }

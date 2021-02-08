@@ -1,6 +1,7 @@
 package com.deliverit.service;
 
 import com.deliverit.entity.user.User;
+import com.deliverit.entity.user.UserType;
 import com.deliverit.repository.AdminRepository;
 import com.deliverit.service.interfaces.UserService;
 import com.deliverit.utility.Utility;
@@ -11,6 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -29,6 +33,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto find(String email) {
         return UserDto.of(adminRepository.findByEmail(email), modelMapper);
+    }
+
+    @Override
+    public List<UserDto> findAllDrivers(){
+        return adminRepository.findByUserType(UserType.DRIVER).stream().map(
+                u -> UserDto.of(u, modelMapper)
+        ).collect(Collectors.toList());
     }
 
     private User getAdmin(UserRequest request) {
